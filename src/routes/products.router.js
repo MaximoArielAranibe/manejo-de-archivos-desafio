@@ -2,7 +2,7 @@ import { Router } from 'express'
 import ProductManager from '../productmanager.js';
 const router = Router()
 
-const manager = new ProductManager('./productos.json');
+const manager = new ProductManager('./archivos.json');
 
 
 router.get('/products', async (req, res) => {
@@ -10,7 +10,6 @@ router.get('/products', async (req, res) => {
     let limit = req.query.limit
     if (!limit) res.send({products})
     else {
-        
         const prodLimit = [];
         if (limit > products.length) limit = products.length;
         for (let index = 0; index < limit; index++) {
@@ -52,7 +51,7 @@ router.delete('/:pid', async (req, res) => {
     res.send(deleteProduct)
 })
 
-router.get('/home/inicio', async (req, res) =>{
+router.get('/home', async (req, res) =>{
     const products = await manager.getProducts()
     res.render('home',
     {
